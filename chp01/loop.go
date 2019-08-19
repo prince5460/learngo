@@ -2,7 +2,7 @@ package main
 
 /**
 循环
- */
+*/
 
 import (
 	"bufio"
@@ -46,11 +46,11 @@ func printFile(filename string) {
 	}
 }
 
-func forever()  {
+func forever() {
 	for {
 		fmt.Println("abc")
 	}
-	
+
 }
 
 func main() {

@@ -1,10 +1,10 @@
 package main
 
 /**
-	1.定义变量
-	2.内建变量类型
-	3.常量与枚举
- */
+1.定义变量
+2.内建变量类型
+3.常量与枚举
+*/
 import (
 	"fmt"
 	"math"
@@ -72,7 +72,7 @@ func consts() {
 
 }
 
-func enums()  {
+func enums() {
 	//枚举
 	//const (
 	//	cpp = 0
@@ -88,16 +88,15 @@ func enums()  {
 		golang
 	)
 	const (
-		b = 1 << (10*iota)
+		b = 1 << (10 * iota)
 		kb
 		mb
 		gb
 		tb
 		pb
 	)
-	fmt.Println(cpp,java,python,golang)
-	fmt.Println(b,kb,mb,gb,tb,pb)
-
+	fmt.Println(cpp, java, python, golang)
+	fmt.Println(b, kb, mb, gb, tb, pb)
 
 }
 
