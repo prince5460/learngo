@@ -2,11 +2,9 @@ package main
 
 import "fmt"
 
-/**
-数组
-*/
+//数组
 
-func printArray(arr []int) {
+func printArray(arr *[5]int) {
 	//数组是值类型
 	//[10]int和[20]int是不同类型
 	//调用func f(arr [10]int)会拷贝数组
@@ -53,10 +51,10 @@ func main() {
 		fmt.Println(arr3[i])
 	}
 
-	fmt.Println("------------")
-	printArray(arr1[:])
-	fmt.Println("------------")
-	printArray(arr3[:])
+	fmt.Println("------arr1------")
+	printArray(&arr1)
+	fmt.Println("------arr3------")
+	printArray(&arr3)
 	fmt.Println("------------")
 	fmt.Println(arr1, arr3)
 	fmt.Println("------------")

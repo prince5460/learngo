@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 )
 
+//条件语句
+
 func testIf() {
 	const filename = "abc.txt"
 
@@ -30,7 +32,8 @@ func grade(score int) string {
 	g := ""
 	switch {
 	case score < 0 || score > 100:
-		panic(fmt.Sprintf("Wrong score :%d", score))
+		//panic(fmt.Sprintf("Wrong score :%d", score))
+		fmt.Printf("Wrong score :%d\n", score)
 	case score < 60:
 		g = "F"
 	case score < 80:
@@ -47,13 +50,11 @@ func grade(score int) string {
 func main() {
 	testIf()
 
-	fmt.Println(eval(9, 2, "+"))
-
 	fmt.Println(
-		grade(20),
+		grade(92),
 		grade(70),
 		grade(80),
-		grade(99),
+		grade(20),
 		grade(100),
 		grade(-3),
 	)

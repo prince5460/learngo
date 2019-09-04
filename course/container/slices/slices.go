@@ -2,9 +2,7 @@ package main
 
 import "fmt"
 
-/**
-切片
-*/
+//切片
 
 func updateSlice(s []int) {
 	s[0] = 100

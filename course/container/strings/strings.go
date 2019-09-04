@@ -5,9 +5,7 @@ import (
 	"unicode/utf8"
 )
 
-/**
-字符和字符串处理
-*/
+//字符和字符串处理
 
 func main() {
 	s := "Hello你在做什么？" //UTF-8

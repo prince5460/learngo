@@ -7,9 +7,7 @@ import (
 	"runtime"
 )
 
-/**
-函数
-*/
+//函数
 
 func eval(a, b int, op string) (int, error) {
 	switch op {
@@ -60,12 +58,13 @@ func main() {
 	} else {
 		fmt.Println(result)
 	}
+
 	fmt.Println(eval(1, 2, "+"))
 
 	q, r := div(12, 3)
 	fmt.Println(q, r)
 
-	//fmt.Println(apply(pow, 3, 4))
+	fmt.Println(apply(pow, 3, 4))
 
 	//匿名函数
 	fmt.Println(apply(func(a int, b int) int {

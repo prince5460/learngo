@@ -1,15 +1,14 @@
 package main
 
-/**
-1.定义变量
-2.内建变量类型
-3.常量与枚举
-*/
 import (
 	"fmt"
 	"math"
 	"math/cmplx"
 )
+
+//1.定义变量
+//2.内建变量类型
+//3.常量与枚举
 
 var (
 	//包内变量
@@ -19,12 +18,14 @@ var (
 )
 
 func variableZeroValue() {
+	//int默认值为0,string默认值为""
 	var a int
 	var s string
 	fmt.Printf("%d,%q\n", a, s)
 }
 
 func variableInitialValue() {
+	//变量赋初值
 	var a, b = 3, 4
 	var s = "abc"
 	fmt.Println(a, b, s)
@@ -44,15 +45,16 @@ func variableShorter() {
 
 func euler() {
 	//欧拉公式
-	//c := 3 + 4i
-	//fmt.Println(cmplx.Abs(c))
-	//fmt.Println(cmplx.Pow(math.E, 1i*math.Pi) + 1)
-	//fmt.Println(cmplx.Exp(1i*math.Pi) + 1)
+	c := 3 + 4i //复数
+	fmt.Println("------euler()------")
+	fmt.Println(cmplx.Abs(c))
+	fmt.Println(cmplx.Pow(math.E, 1i*math.Pi) + 1)
+	fmt.Println(cmplx.Exp(1i*math.Pi) + 1)
 	fmt.Printf("%.3f\n", cmplx.Exp(1i*math.Pi)+1)
 }
 
 func triangle() {
-	//强制类型转换
+	//强制类型转换,golang中没有隐式类型转换
 	var a, b int = 3, 4
 	var c int
 	c = int(math.Sqrt(float64(a*a + b*b)))

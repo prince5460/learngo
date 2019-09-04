@@ -2,9 +2,12 @@ package main
 
 import "fmt"
 
-/**
-map
-*/
+//map
+//map的key：
+//map使用哈希表，必须可以比较相等
+//除了slice,map,function的内建类型都可以作为key
+//Struct类型不包含上述字段，也可作为key
+
 func main() {
 	m := map[string]string{
 		"name":    "zhou",
@@ -43,10 +46,3 @@ func main() {
 	name, ok = m["name"]
 	fmt.Println(name, ok)
 }
-
-/**
-map的key：
-map使用哈希表，必须可以比较相等
-除了slice,map,function的内建类型都可以作为key
-Struct类型不包含上述字段，也可作为key
-*/

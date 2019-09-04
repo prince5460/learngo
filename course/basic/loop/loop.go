@@ -1,15 +1,13 @@
 package main
 
-/**
-循环
-*/
-
 import (
 	"bufio"
 	"fmt"
 	"os"
 	"strconv"
 )
+
+//循环
 
 func add() {
 	//for的条件里不需要括号
@@ -22,6 +20,7 @@ func add() {
 
 //for的条件里可以省略初始条件，结束条件，递增表达式
 func convertToBin(n int) string {
+	//整数转二进制
 	result := ""
 	if n == 0 {
 		return "0"
@@ -34,6 +33,7 @@ func convertToBin(n int) string {
 }
 
 func printFile(filename string) {
+	//逐行读取文件内容
 	file, err := os.Open(filename)
 	if err != nil {
 		panic(err)
@@ -47,6 +47,7 @@ func printFile(filename string) {
 }
 
 func forever() {
+	//死循环
 	for {
 		fmt.Println("abc")
 	}
@@ -65,5 +66,5 @@ func main() {
 
 	printFile("abc.txt")
 
-	forever()
+	//forever()
 }

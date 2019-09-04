@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+//切片的操作
+
 func printSlice(s []int) {
 	fmt.Printf("%v,len=%d,cap=%d\n", s, len(s), cap(s))
 
@@ -11,7 +13,7 @@ func main() {
 	fmt.Println("Creating slice")
 	var s []int // Zero value for slice is nil
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 10; i++ {
 		printSlice(s)
 		s = append(s, 2*i+1)
 	}

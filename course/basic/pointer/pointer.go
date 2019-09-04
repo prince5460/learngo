@@ -2,9 +2,7 @@ package main
 
 import "fmt"
 
-/**
-指针：golang只有值传递
-*/
+//指针：不能运算,只有值传递
 
 func swap(a, b *int) {
 	*b, *a = *a, *b
