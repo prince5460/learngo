@@ -2,13 +2,14 @@ package queue
 
 //模拟一个队列
 
-type Queue []int
+//interface{}支持任意类型
+type Queue []interface{}
 
-func (q *Queue) Push(v int) {
+func (q *Queue) Push(v interface{}) {
 	*q = append(*q, v)
 }
 
-func (q *Queue) Pop() int {
+func (q *Queue) Pop() interface{} {
 	head := (*q)[0]
 	*q = (*q)[1:]
 	return head
