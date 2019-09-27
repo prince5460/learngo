@@ -2,6 +2,8 @@ package model
 
 import "fmt"
 
+//封装
+
 type person struct {
 	Name   string
 	age    int

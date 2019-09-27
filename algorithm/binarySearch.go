@@ -7,15 +7,15 @@ import "fmt"
 func main() {
 	arr := []int{1, 3, 4, 6, 7, 9, 12, 99}
 
-	fmt.Println(BinarySearch(&arr, 12))
+	fmt.Println(BinarySearch(arr, 12))
 }
 
-func BinarySearch(arr *[]int, item int) int {
+func BinarySearch(arr []int, item int) int {
 	low := 0
-	high := len(*arr) - 1
+	high := len(arr) - 1
 	for low <= high {
 		mid := (low + high) / 2
-		guess := (*arr)[mid]
+		guess := arr[mid]
 		if guess == item {
 			return mid
 		}

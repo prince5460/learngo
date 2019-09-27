@@ -9,7 +9,8 @@ func main() {
 
 	BubbleSort(&arr)
 
-	fmt.Println("main arr:", arr)
+	sl := []int{34, 1, 9, 4, 6, 2}
+	BubbleSort2(sl)
 }
 
 func BubbleSort(arr *[5]int) {
@@ -24,4 +25,15 @@ func BubbleSort(arr *[5]int) {
 		}
 	}
 	fmt.Println(*arr)
+}
+
+func BubbleSort2(sl []int) {
+	for i := 0; i < len(sl)-1; i++ {
+		for j := 0; j < len(sl)-i-1; j++ {
+			if sl[j] > sl[j+1] {
+				sl[j], sl[j+1] = sl[j+1], sl[j]
+			}
+		}
+	}
+	fmt.Println(sl)
 }
