@@ -8,13 +8,13 @@ import (
 
 var (
 	myMap = make(map[int]int, 10)
-	lock  sync.Mutex
+	lock  sync.Mutex //同步互斥锁
 )
 
 func test(n int) {
 	res := 1
 	for i := 1; i <= n; i++ {
-		res += i
+		res *= i
 	}
 	lock.Lock()
 	myMap[n] = res
