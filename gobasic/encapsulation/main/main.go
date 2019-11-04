@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"learngo/encapsulation/model"
+	"learngo/gobasic/encapsulation/model"
 )
 
 func main() {
