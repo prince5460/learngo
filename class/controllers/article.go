@@ -1,9 +1,13 @@
 package controllers
 
 import (
+	"bytes"
+	"encoding/gob"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
+	"github.com/gomodule/redigo/redis"
+	rPool "learngo/class/cache/redis"
 	"learngo/class/models"
 	"math"
 	"path"
@@ -16,21 +20,21 @@ type ArticleController struct {
 }
 
 //处理下拉框请求
-func (c *ArticleController) HandleSelect() {
-	//1.接收数据
-	typeName := c.GetString("select")
-	//2.处理数据
-	if typeName == "" {
-		logs.Info("下拉框传递数据失败")
-		return
-	}
-	//3.查询数据
-	o := orm.NewOrm()
-	var articles []models.Article
-	//惰性查询,加上RelatedSel
-	o.QueryTable("Article").RelatedSel("ArticleType").Filter("ArticleType__TypeName", typeName).All(&articles)
-
-}
+//func (c *ArticleController) HandleSelect() {
+//	//1.接收数据
+//	typeName := c.GetString("select")
+//	//2.处理数据
+//	if typeName == "" {
+//		logs.Info("下拉框传递数据失败")
+//		return
+//	}
+//	//3.查询数据
+//	o := orm.NewOrm()
+//	var articles []models.Article
+//	//惰性查询,加上RelatedSel
+//	o.QueryTable("Article").RelatedSel("ArticleType").Filter("ArticleType__TypeName", typeName).All(&articles)
+//
+//}
 
 //显示文章首页
 func (c *ArticleController) ShowIndex() {
@@ -75,6 +79,17 @@ func (c *ArticleController) ShowIndex() {
 		logs.Info("数据查询失败")
 		return
 	}
+
+	//根据类型获取数据
+	var articleWithType []models.Article
+	typeName := c.GetString("select")
+	if typeName == "" || typeName == "全部类型" {
+		logs.Info("下拉框传递数据失败")
+		qs.Limit(pageSize, start).RelatedSel("ArticleType").All(&articleWithType)
+	} else {
+		qs.Limit(pageSize, start).RelatedSel("ArticleType").Filter("ArticleType__TypeName", typeName).All(&articleWithType)
+	}
+
 	pageCount := math.Ceil(float64(count) / float64(pageSize)) //总页数
 
 	//首页末页数据处理
@@ -88,21 +103,32 @@ func (c *ArticleController) ShowIndex() {
 	}
 
 	//读取类型
-	var types []models.ArticleType
-	o.QueryTable("ArticleType").All(&types)
-
-	//根据类型获取数据
-	var articleWithType []models.Article
-	typeName := c.GetString("select")
-	if typeName == "" {
-		logs.Info("下拉框传递数据失败")
-		qs.Limit(pageSize, start).RelatedSel("ArticleType").All(&articleWithType)
-	} else {
-		qs.Limit(pageSize, start).RelatedSel("ArticleType").Filter("ArticleType__TypeName", typeName).All(&articleWithType)
+	var types []models.ArticleType //定义一个存储所有type对象的数组
+	//获得redis连接池中的一个连接
+	conn := rPool.RedisPool().Get()
+	defer conn.Close()
+	rel, err := redis.Bytes(conn.Do("get", "types"))
+	if err != nil {
+		logs.Info("获取redis数据错误,err=", err)
+		//return
 	}
+	dec := gob.NewDecoder(bytes.NewReader(rel))
+	dec.Decode(&types)
+
+	if len(types) == 0 {
+		o.QueryTable("ArticleType").All(&types) //从mysql取数据
+		var buffer bytes.Buffer
+		enc := gob.NewEncoder(&buffer)
+		err := enc.Encode(&types)
+		_, err = conn.Do("set", "types", buffer.Bytes())
+		if err != nil {
+			logs.Info("redis数据库操作错误,err=", err)
+			return
+		}
+	}
+	c.Data["types"] = types
 
 	c.Data["userName"] = c.GetSession("userName")
-	c.Data["types"] = types
 	c.Data["FirstPage"] = FirstPage
 	c.Data["LastPage"] = LastPage
 	c.Data["count"] = count
