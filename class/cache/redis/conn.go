@@ -2,15 +2,15 @@ package redis
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
 	"github.com/gomodule/redigo/redis"
+	"learngo/class/conf"
 	"time"
 )
 
 var (
 	pool      *redis.Pool
-	redisHost = beego.AppConfig.String("redisHost")
-	redisPass = beego.AppConfig.String("redisPass")
+	redisHost = conf.RedisHost
+	redisPass = conf.RedisPass
 )
 
 //newRedisPool:创建redis连接池

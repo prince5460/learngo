@@ -1,9 +1,9 @@
 package models
 
 import (
-	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
+	"learngo/class/conf"
 	"time"
 )
 
@@ -33,7 +33,7 @@ type ArticleType struct {
 
 func init() {
 	//设置数据库基本信息
-	orm.RegisterDataBase("default", "mysql", beego.AppConfig.String("datasource"))
+	orm.RegisterDataBase("default", "mysql", conf.DataSource)
 	//映射model数据
 	orm.RegisterModel(new(User), new(Article), new(ArticleType))
 	//生成表
