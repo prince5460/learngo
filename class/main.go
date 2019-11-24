@@ -9,6 +9,7 @@ import (
 func main() {
 	beego.AddFuncMap("ShowPrePage", HandlePrePage)
 	beego.AddFuncMap("ShowNextPage", HandleNextPage)
+	beego.SetStaticPath("/static", "static")
 	beego.Run()
 }
 

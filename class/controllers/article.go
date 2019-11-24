@@ -126,6 +126,7 @@ func (c *ArticleController) ShowIndex() {
 			return
 		}
 	}
+	//o.QueryTable("ArticleType").All(&types) //从mysql取数据
 	c.Data["types"] = types
 
 	c.Data["userName"] = c.GetSession("userName")
@@ -208,7 +209,7 @@ func (c *ArticleController) HandleAdd() {
 		logs.Info("上传文件失败")
 		return
 	} else {
-		c.SaveToFile("uploadname", "../static/img/"+filename)
+		c.SaveToFile("uploadname", "./static/img/"+filename)
 	}
 
 	//2.判断数据是否合法
@@ -354,7 +355,7 @@ func (c *ArticleController) HandleUpdate() {
 		}
 		//对文件重命名防止重复
 		filename = time.Now().Format("20060102150405") + fileext
-		c.SaveToFile("uploadname", "../static/img/"+filename)
+		c.SaveToFile("uploadname", "./static/img/"+filename)
 	}
 	//2.处理数据
 	if title == "" || content == "" {
